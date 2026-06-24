@@ -8,7 +8,6 @@ QuantShield is an intelligent cybersecurity platform designed to detect phishing
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![React](https://img.shields.io/badge/React-18+-blue.svg)](https://react.dev/)
 [![Flask](https://img.shields.io/badge/Flask-Latest-green.svg)](https://flask.palletsprojects.com/)
-[![XGBoost](https://img.shields.io/badge/XGBoost-Latest-orange.svg)](https://xgboost.readthedocs.io/)
 
 
 </div>
