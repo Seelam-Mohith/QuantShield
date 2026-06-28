@@ -1,4 +1,4 @@
-import { Github, Mail, Shield } from 'lucide-react'
+import { Github, GitBranch, Mail, Shield } from 'lucide-react'
 
 function Footer() {
   return (
@@ -23,17 +23,34 @@ function Footer() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-300">
-                Contact
-              </h4>
-              <a
-                href="mailto:seelammohith2222@gmail.com"
-                className="mt-3 flex items-center gap-3 text-sm text-gray-400 transition-colors hover:text-indigo-300"
-              >
-                <Mail className="h-4 w-4" />
-                <span>seelammohith2222@gmail.com</span>
-              </a>
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-300">
+                  Contact
+                </h4>
+                <a
+                  href="mailto:seelammohith2222@gmail.com"
+                  className="mt-3 flex items-center gap-3 text-sm text-gray-400 transition-colors hover:text-indigo-300"
+                >
+                  <Mail className="h-4 w-4" />
+                  <span>seelammohith2222@gmail.com</span>
+                </a>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-300">
+                  Issues
+                </h4>
+                <a
+                  href="https://github.com/Seelam-Mohith/DevSync/issues"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 flex items-center gap-3 text-sm text-gray-400 transition-colors hover:text-blue-300"
+                >
+                  <GitBranch className="h-4 w-4" />
+                  <span>github.com/Seelam-Mohith/DevSync/issues</span>
+                </a>
+              </div>
             </div>
 
             <div>
@@ -53,7 +70,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-white/10 pt-4 text-xs text-gray-500">
+        <div className="mt-6 border-t border-white/10 pt-4 text-xs text-gray-500">
           Built by Seelam Mohith for cybersecurity-focused threat analysis.
         </div>
       </div>
