@@ -38,9 +38,9 @@ function Footer() {
               </div>
 
               <div>
-                <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-300">
-                  Issues
-                </h4>
+              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-300">
+                Report Issues here
+              </h4>
                 <a
                   href="https://github.com/Seelam-Mohith/DevSync/issues"
                   target="_blank"
