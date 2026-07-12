@@ -14,14 +14,6 @@ export default defineConfig({
     }
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vanta': ['vanta'],
-          'three': ['three']
-        }
-      }
-    },
     chunkSizeWarningLimit: 500,
     minify: 'terser',
     terserOptions: {
