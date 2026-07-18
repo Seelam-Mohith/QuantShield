@@ -368,23 +368,3 @@ Before deploying to production:
 
 ---
 
-## You're All Set!
-
-Your QuantShield frontend is complete and ready to use. Start with:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Then open `http://localhost:3000` in your browser!
-
-Enjoy building!
-
----
-
-**Created:** April 2026
-**Framework:** React 18 + Vite
-**Styling:** Tailwind CSS
-**Status:** Production-Ready
