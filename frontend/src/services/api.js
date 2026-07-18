@@ -22,7 +22,7 @@ export const emailApi = {
   async checkEmail(emailContent) {
     try {
       // Try to call the backend API
-      const response = await apiClient.post('/api/email-check', { content: emailContent })
+      const response = await apiClient.post('/email-check', { content: emailContent })
       return {
         isPhishing: response.data.prediction === 'phishing',
         confidence: response.data.confidence,
@@ -65,7 +65,7 @@ export const urlApi = {
   async checkUrl(url) {
     try {
       // Try to call the backend API
-      const response = await apiClient.post('/api/url-check', { url })
+      const response = await apiClient.post('/url-check', { url })
       return {
         isPhishing: response.data.prediction === 'phishing',
         confidence: response.data.confidence,
@@ -107,87 +107,28 @@ export const urlApi = {
 export const smsApi = {
   async checkSms(smsContent) {
     try {
-      const normalizedSmsContent = String(smsContent || '').toLowerCase()
+
       const response = await apiClient.post(
-        '/api/sms-check',
+        '/sms-check',
         {
           content: smsContent
         }
       )
 
-      const predictionValue = String(
-        response.data.prediction ?? response.data.classification ?? ''
-      ).trim().toLowerCase()
-      const isPhishing = (
-        response.data.isPhishing === true ||
-        response.data.is_phishing === true ||
-        predictionValue === 'spam' ||
-        predictionValue === 'phishing' ||
-        predictionValue === 'malicious' ||
-        predictionValue === 'scam'
-      )
-      const confidenceValue = Number(response.data.confidence)
-      const suspiciousSignals = [
-        'bit.ly',
-        'tinyurl',
-        'shorturl',
-        '.xyz',
-        '.top',
-        '.click',
-        '.ru',
-        'verify',
-        'confirm',
-        'urgent',
-        'otp',
-        'password',
-        'bank',
-        'account',
-        'refund',
-        'winner',
-        'prize',
-        'free money',
-        'scam',
-      ]
-      const looksSuspicious = suspiciousSignals.some((signal) =>
-        normalizedSmsContent.includes(signal)
-      )
-      const displayAsPhishing = isPhishing || (
-        !isPhishing &&
-        looksSuspicious &&
-        ['ham', 'safe', 'legit', 'legitimate', 'normal', 'unknown', ''].includes(predictionValue)
-      )
-
       return {
-        isPhishing: displayAsPhishing,
-        confidence: Number.isFinite(confidenceValue) && confidenceValue > 0
-          ? confidenceValue
-          : displayAsPhishing
-            ? 0.88
-          : null,
-        message: displayAsPhishing
-          ? (response.data.message && !/legitimate|safe/i.test(response.data.message)
-              ? response.data.message
-              : 'This SMS looks suspicious and may be part of a phishing/scam.')
-          : (response.data.message || (
-            isPhishing
-            ? 'This SMS looks suspicious and may be part of a phishing/scam.'
-            : 'This SMS appears legitimate.'
-          )),
+        isPhishing: response.data.prediction === 'spam',
+        confidence: response.data.confidence || 0,
+        message: response.data.message || '',
         explanation: response.data.ai_explanation || '',
         explanationSource: response.data.explanation_source || 'unknown',
-        explanationNote: displayAsPhishing && !isPhishing
-          ? 'Frontend safety heuristic reinforced the SMS result because the content contains obvious scam indicators.'
-          : response.data.explanation_note || '',
-        details: displayAsPhishing && !isPhishing
-          ? [
-            'Suspicious SMS keywords or link patterns detected on the frontend.',
-            ...(response.data.details || []).slice(0, 2),
-          ]
-          : response.data.details || [],
+        explanationNote: response.data.explanation_note || '',
+        details: response.data.details || [],
         leaderboard: response.data.leaderboard || mockLeaderboard,
         modelUsed: response.data.model_used || 'SVM SMS Classifier',
       }
+
     } catch (error) {
+
       console.warn(
         'API call failed, using mock data for SMS:',
         error.message
@@ -230,7 +171,7 @@ export const smsApi = {
 export const dashboardApi = {
   async getStats() {
     try {
-      const response = await apiClient.get('/api/stats')
+      const response = await apiClient.get('/stats')
       return response.data
     } catch (error) {
       console.warn('API call failed, using mock stats:', error.message)
@@ -260,7 +201,7 @@ export const networkApi = {
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = await apiClient.post('/api/network-check', formData, {
+      const response = await apiClient.post('/network-check', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
